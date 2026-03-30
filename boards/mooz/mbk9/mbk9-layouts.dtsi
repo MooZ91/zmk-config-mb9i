@@ -1,0 +1,28 @@
+/*
+ * Physical Layout Configuration for MBK9 (3x3 Matrix)
+ */
+
+#include <physical_layouts.dtsi>
+
+/ {
+    default_layout: default_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "3x3 Grid";
+        transform = <&default_transform>;
+        kscan = <&kscan0>;
+
+        // 3x3 Grid layout with key positions
+        // Each key is 100x100 units (1u x 1u)
+        keys  //                     w   h    x    y     rot    rx    ry
+            = <&key_physical_attrs 100 100    0    0       0     0     0>
+            , <&key_physical_attrs 100 100  100    0       0     0     0>
+            , <&key_physical_attrs 100 100  200    0       0     0     0>
+            , <&key_physical_attrs 100 100    0  100       0     0     0>
+            , <&key_physical_attrs 100 100  100  100       0     0     0>
+            , <&key_physical_attrs 100 100  200  100       0     0     0>
+            , <&key_physical_attrs 100 100    0  200       0     0     0>
+            , <&key_physical_attrs 100 100  100  200       0     0     0>
+            , <&key_physical_attrs 100 100  200  200       0     0     0>
+            ;
+    };
+};

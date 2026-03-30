@@ -1,0 +1,6 @@
+if SHIELD_MBK9
+
+config ZMK_KEYBOARD_NAME
+    default "mbk9"
+
+endif # SHIELD_MBK9

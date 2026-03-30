@@ -1,0 +1,150 @@
+/dts-v1/;
+#include <nordic/nrf52840_qiaa.dtsi>
+#include <dt-bindings/zmk/matrix_transform.h>
+
+#include "mbk9-pinctrl.dtsi"
+#include "mbk9-layouts.dtsi"
+
+/ {
+    model = "MBK9";
+    compatible = "mbk9";
+
+    chosen {
+        zephyr,code-partition = &code_partition;
+        zephyr,sram = &sram0;
+        zephyr,flash = &flash0;
+        zmk,kscan = &kscan0;
+        zmk,physical-layout = &default_layout;
+        zmk,underglow = &led_strip;
+    };
+
+    // 3x3 Matrix Key Scan Configuration
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        label = "KSCAN";
+        diode-direction = "col2row";
+        wakeup-source;
+
+        // Column GPIOs (3 columns)
+        col-gpios
+            = <&gpio0 4 GPIO_ACTIVE_HIGH>
+            , <&gpio0 5 GPIO_ACTIVE_HIGH>
+            , <&gpio0 6 GPIO_ACTIVE_HIGH>
+            ;
+
+        // Row GPIOs (3 rows)
+        row-gpios
+            = <&gpio0 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            ;
+    };
+
+    // 3x3 Matrix Transform
+    default_transform: default_transform {
+        compatible = "zmk,matrix-transform";
+        columns = <3>;
+        rows = <3>;
+
+        map = <
+            RC(0, 0) RC(0, 1) RC(0, 2)
+            RC(1, 0) RC(1, 1) RC(1, 2)
+            RC(2, 0) RC(2, 1) RC(2, 2)
+        >;
+    };
+
+    // LED Strip Configuration for RGB
+    led_strip: ws2812b_strip {
+        compatible = "worldsemi,ws2812b-gpio";
+        label = "RGB_LED";
+        pin = <&gpio0 10>;
+        chain-length = <9>;  // 9 LEDs for 3x3 matrix
+        color-mapping = <LED_COLOR_ID_GREEN LED_COLOR_ID_RED LED_COLOR_ID_BLUE>;
+        reset-delay = <250>;
+        freq = <800000>;
+    };
+
+    // VIA/EEPROM Configuration
+    compat_id_qwiic: compat_id_qwiic {
+        compatible = "zmk,compat-id-qwiic-i2c";
+        label = "COMPAT_ID";
+    };
+
+    // Optional: Status LED
+    leds {
+        compatible = "gpio-leds";
+
+        status_led: led_0 {
+            gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
+            label = "Status LED";
+        };
+    };
+};
+
+// Bluetooth Configuration
+&bt {
+    status = "okay";
+};
+
+// ADC for battery
+&adc {
+    status = "okay";
+};
+
+// GPIO Configuration
+&gpiote {
+    status = "okay";
+};
+
+&gpio0 {
+    status = "okay";
+};
+
+&gpio1 {
+    status = "okay";
+};
+
+// UART for debugging
+&uart0 {
+    compatible = "nordic,nrf-uarte";
+    current-speed = <115200>;
+    pinctrl-0 = <&uart0_default>;
+    pinctrl-1 = <&uart0_sleep>;
+    pinctrl-names = "default", "sleep";
+};
+
+// USB Device Controller
+zephyr_udc0: &usbd {
+    status = "okay";
+};
+
+&flash0 {
+    partitions {
+        compatible = "fixed-partitions";
+        #address-cells = <1>;
+        #size-cells = <1>;
+
+        code_partition: partition@1000 {
+            label = "code";
+            reg = <DT_SIZE_K(4) DT_SIZE_K(844)>;
+            read-only;
+        };
+
+        // VIA/EEPROM storage partition
+        via_partition: partition@d7000 {
+            label = "via";
+            reg = <DT_SIZE_K(856) DT_SIZE_K(8)>;
+            read-only;
+        };
+
+        // Storage partition for ZMK settings
+        storage_partition: partition@d9000 {
+            label = "storage";
+            reg = <DT_SIZE_K(864) DT_SIZE_K(8)>;
+        };
+
+        boot_partition: partition@f4000 {
+            reg = <DT_SIZE_K(976) DT_SIZE_K(48)>;
+        };
+    };
+};
