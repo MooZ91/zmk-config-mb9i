@@ -10,22 +10,6 @@
 #include <dt-bindings/zmk/rgb.h>
 
 / {
-    behaviors {
-        rgb_base: rgb_base {
-            compatible = "zmk,behavior-rgb-hsv";
-        };
-    };
-
-    // Define macros for easy layer switching
-    macros {
-        mo_bksp: macros_mo_bksp {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&mo 1>, <&kp BSPC>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
