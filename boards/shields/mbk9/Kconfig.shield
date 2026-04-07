@@ -1,2 +1,0 @@
-config SHIELD_MBK9
-    def_bool $(shields_list_contains,mbk9)

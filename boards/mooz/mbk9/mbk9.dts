@@ -7,7 +7,7 @@
 
 / {
     model = "MBK9";
-    compatible = "mbk9";
+    compatible = "mooz,mbk9";
 
     chosen {
         zephyr,code-partition = &code_partition;
