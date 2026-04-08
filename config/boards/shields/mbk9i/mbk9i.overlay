@@ -17,6 +17,8 @@
 
         label = "Default Layout";
         display-name = "Default Layout";
+        transform = <&default_transform>;
+        kscan = <&kscan>;
     };
 
     default_kscan: kscan {
