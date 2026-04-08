@@ -16,10 +16,10 @@
 
         bt_layer {
             bindings = <
-                &bt BT_PAIRING &bt BT_1 &bt BT_2
+                &bt BT_CLR &bt BT_1 &bt BT_2
                 &bt BT_3 &bt BT_4 &bt BT_5
                 &trans &trans &trans
-             >;
+            >;
         };
     }
 };
