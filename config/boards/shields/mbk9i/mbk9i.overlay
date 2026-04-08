@@ -15,10 +15,9 @@
     default_physical_layout: physical_layout {
         compatible = "zmk,physical-layout";
 
-        label = "Default Layout";
         display-name = "Default Layout";
         transform = <&default_transform>;
-        
+
     };
 
     default_kscan: kscan {
