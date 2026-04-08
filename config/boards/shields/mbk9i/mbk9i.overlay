@@ -5,10 +5,17 @@
         zmk,kscan = &default_kscan;
         zmk,matrix_transform = &default_transform;
         zmk,studio-usb = &studio_usb;
+        zmk,physical-layout = &default_physical_layout;
     };
 
     studio_usb: zmk,studio-usb {
         compatible = "zmk,studio-usb";
+    };
+
+    default_physical_layout: physical_layout {
+        compatible = "zmk,physical-layout";
+
+        label = "Default Layout";
     };
 
     default_kscan: kscan {
