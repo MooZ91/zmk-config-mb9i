@@ -16,6 +16,7 @@
         compatible = "zmk,physical-layout";
 
         label = "Default Layout";
+        display-name = "Default Layout";
     };
 
     default_kscan: kscan {
