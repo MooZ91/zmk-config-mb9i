@@ -1,2 +1,2 @@
-config SHIELD_MBK9I
-    def_bool $(shields_list_contains, mbk9i)
+config SHIELD_MB9I
+    def_bool $(shields_list_contains, mb9i)

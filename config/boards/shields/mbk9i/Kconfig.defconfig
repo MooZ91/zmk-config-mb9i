@@ -1,6 +1,6 @@
 if SHIELD_MBK9I
 
 config ZMK_KEYBOARD_NAME
-    default "MBK9i"
+    default "MB9i"
 
 endif
