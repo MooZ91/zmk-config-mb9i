@@ -1,6 +1,6 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
-/{
+/ {
     default_kscan: kscan {
         compatible = "zmk,kscan-gpio-matrix";
         label = "default_kscan";
@@ -26,22 +26,20 @@
             RC(0,0) RC(0,1) RC(0,2)
             RC(1,0) RC(1,1) RC(1,2)
             RC(2,0) RC(2,1) RC(2,2)
-            >;
-
-    
+        >;
     };
 
     physical_layout0: physical_layout_0 {
         compatible = "zmk,physical-layout";
-        display-name = "Default";
-
-        kscan = <&default_kscan>;
+        display-name = "Default Layout";
         transform = <&default_transform>;
+        kscan = <&default_kscan>;
 
         keys  //                     w   h    x    y     rot    rx    ry
-            = <&key_physical_at Layout";
-        transform = <&default_transform>;
-        kscan = <&default_kscan100    0  100       0     0     0>
+            = <&key_physical_attrs 100 100    0    0       0     0     0>
+            , <&key_physical_attrs 100 100  100    0       0     0     0>
+            , <&key_physical_attrs 100 100  200    0       0     0     0>
+            , <&key_physical_attrs 100 100    0  100       0     0     0>
             , <&key_physical_attrs 100 100  100  100       0     0     0>
             , <&key_physical_attrs 100 100  200  100       0     0     0>
             , <&key_physical_attrs 100 100    0  200       0     0     0>
@@ -50,7 +48,8 @@
             ;
     };
 
-};    chosen {
+    chosen {
         zmk,kscan = &default_kscan;
         zmk,physical-layout = &physical_layout0;
     };
+};
